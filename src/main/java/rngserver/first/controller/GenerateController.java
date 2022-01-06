@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import rngserver.first.exception.RandomNumberException;
 import rngserver.first.model.Generate;
 
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class GenerateController {
     public String generateNumbers(@ModelAttribute Generate generate, Model model) {
         logger.info("From the form: " + generate.getNumberVal());
         int numberRandomNumbers = generate.getNumberVal();
+        if (numberRandomNumbers > 30) {
+            // throw new RandomNumberException();
+            model.addAttribute("errorMsg", "Exceeded max number");
+            return "error";
+        }
         String[] imgNumbers = {"number1.jpg", "number2.jpg", "number3.jpg", "number4.jpg", "number5.jpg", "number6.jpg", 
         "number7.jpg", "number8.jpg", "number9.jpg", "number10.jpg", "number11.jpg", "number12.jpg", "number13.jpg", 
         "number14.jpg", "number15.jpg", "number16.jpg", "number17.jpg", "number18.jpg", "number19.jpg", "number20.jpg", 
@@ -46,7 +52,7 @@ public class GenerateController {
         Random randNum = new Random();
         Set<Integer> uniqueGeneratedRandNumSet = new LinkedHashSet<Integer>();
         while (uniqueGeneratedRandNumSet.size() < numberRandomNumbers) {
-            Integer resultOfRandNumbers = randNum.nextInt(30); // generate.getNumberVal() 
+            Integer resultOfRandNumbers = randNum.nextInt(generate.getNumberVal() + 1); // generate.getNumberVal() 
             uniqueGeneratedRandNumSet.add(resultOfRandNumbers);
         }
         Iterator<Integer> it = uniqueGeneratedRandNumSet.iterator();
@@ -54,7 +60,7 @@ public class GenerateController {
         while (it.hasNext()) {
             currentElem = it.next();
             logger.info("current element > " + currentElem);
-            selectedImg.add(imgNumbers[currentElem.intValue() -1 ]);
+            selectedImg.add(imgNumbers[currentElem.intValue()]);
         }
         model.addAttribute("randNumsResult", selectedImg.toArray());
         return "result";
