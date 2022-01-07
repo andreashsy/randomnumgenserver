@@ -1,14 +1,15 @@
 package rngserver.first.model;
 
 import java.io.Serializable;
-// form
+// model in MVC
 public class Generate implements Serializable {
-    private int numberVal;
-    public void setNumberVal(int numberVal) {
+    private Integer numberVal;
+
+    public void setNumberVal(Integer numberVal) {
         this.numberVal = numberVal;
     }
 
-    public int getNumberVal() {
+    public Integer getNumberVal() {
         return this.numberVal;
     }
     

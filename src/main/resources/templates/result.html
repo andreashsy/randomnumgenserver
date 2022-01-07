@@ -7,6 +7,7 @@
     <title>Random Number Result</title>
 </head>
 <body>
+    <h1>Your <span th:text="*{numRandNum}"></span> numbers are</h1>
     <ul th:each="numVal : ${randNumsResult}">
         <li th:text="*{numVal}"></li>
         <img th:src="@{${'/images/' + numVal}}" width=150 height=200/>

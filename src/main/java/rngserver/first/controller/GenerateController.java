@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import rngserver.first.exception.RandomNumberException;
 import rngserver.first.model.Generate;
 
 import java.util.ArrayList;
@@ -23,15 +22,16 @@ import org.slf4j.LoggerFactory;
 public class GenerateController {
     private Logger logger = LoggerFactory.getLogger(GenerateController.class);
 
-    @GetMapping("/generate")
+    @GetMapping("/")
     public String showGenerateForm(Model model) {
         Generate generate = new Generate();
-        // ties to th object on html page
-        model.addAttribute("generate", generate);
+        // ties to the object on html page, name of object and object itself
+        model.addAttribute("generateObj", generate);
         //ties to page
         return "generate";
     }
 
+// This function handles when the submission button is pressed
 // @ModelAttribute returns the model associated with the form
 
     @PostMapping("/generate")
@@ -39,7 +39,6 @@ public class GenerateController {
         logger.info("From the form: " + generate.getNumberVal());
         int numberRandomNumbers = generate.getNumberVal();
         if (numberRandomNumbers > 30) {
-            // throw new RandomNumberException();
             model.addAttribute("errorMsg", "Exceeded max number");
             return "error";
         }
@@ -63,6 +62,7 @@ public class GenerateController {
             selectedImg.add(imgNumbers[currentElem.intValue()]);
         }
         model.addAttribute("randNumsResult", selectedImg.toArray());
+        model.addAttribute("numRandNum", numberRandomNumbers);
         return "result";
     }
 

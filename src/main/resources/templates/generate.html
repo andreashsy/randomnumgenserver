@@ -8,10 +8,12 @@
 </head>
 <body>
     <h1>How many numbers do you wish to generate?</h1>
-    <!-- the $ binds to the generate object in Generate.java -->
+    <!-- the $ binds to the generate object in Generate.java 
+         the @{/generate} links to the controller @PostMapping(/generate), will call the method when button is pressed
+    -->
     <form action="#" 
     th:action="@{/generate}" 
-    th:object="${generate}" 
+    th:object="${generateObj}" 
     method="post">
         <p> 
             <!-- the * refereces to the object in this form, in this case is generate-->
@@ -19,6 +21,5 @@
             <input type="submit" value="Generate"/>
         </p>
 
-    </form>
 </body>
 </html>
