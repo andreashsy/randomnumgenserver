@@ -52,7 +52,7 @@ public class GenerateController {
         Random randNum = new Random();
         Set<Integer> uniqueGeneratedRandNumSet = new LinkedHashSet<Integer>();
         while (uniqueGeneratedRandNumSet.size() < numberRandomNumbers) {
-            Integer resultOfRandNumbers = randNum.nextInt(generate.getNumberVal() + 1); // generate.getNumberVal() 
+            Integer resultOfRandNumbers = randNum.nextInt(30); // generate.getNumberVal() 
             uniqueGeneratedRandNumSet.add(resultOfRandNumbers);
         }
         Iterator<Integer> it = uniqueGeneratedRandNumSet.iterator();
